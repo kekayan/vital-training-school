@@ -1,0 +1,64 @@
+---
+title: Microvascular Modelling
+description: Python-based microvascular modelling tutorial
+---
+
+This tutorial covers the Python-based microvascular modelling component of the VITAL training.
+
+## Overview
+
+The MicrovascularModelling module provides Python scripts for simulating and analyzing microvascular networks.
+
+## Running the Microvascular Model
+
+Make sure you are inside the Docker container (see [Setup](/multiscale-modelling/setup)).
+
+### Step 1: Navigate to the Directory
+
+```bash
+cd /code/MicrovascularModelling
+```
+
+### Step 2: Run the VITAL Script
+
+```bash
+python -m scripts.VITAL
+```
+
+## Module Structure
+
+The MicrovascularModelling directory contains:
+
+```
+MicrovascularModelling/
+└── scripts/
+    └── VITAL.py    # Main tutorial script
+```
+
+## Key Concepts
+
+### Microvascular Networks
+
+Microvascular modelling focuses on the smallest blood vessels in the circulatory system:
+
+| Vessel Type | Diameter Range |
+|-------------|----------------|
+| Arterioles | 10-100 μm |
+| Capillaries | 5-10 μm |
+| Venules | 10-100 μm |
+
+### Modelling Approaches
+
+The tutorial covers various aspects of microvascular modelling:
+
+1. **Network Topology** - Structure and connectivity of vessel networks
+2. **Blood Flow** - Hemodynamics in small vessels
+3. **Transport** - Oxygen and nutrient delivery
+4. **Adaptation** - How vessels respond to changing conditions
+
+## Next Steps
+
+<Cards>
+  <Card title="CCO Tutorial" href="/multiscale-modelling/cco" />
+  <Card title="Back to Overview" href="/multiscale-modelling" />
+</Cards>

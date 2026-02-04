@@ -1,0 +1,210 @@
+---
+title: Setup
+description: Setting up the multiscale modelling environment with Docker
+---
+
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
+
+This guide walks you through setting up the multiscale modelling environment using Docker.
+
+## Step 1: Pull the Docker Image
+
+First, pull the pre-built Docker image containing all necessary dependencies:
+
+<Tabs groupId="os" items={['Linux', 'macOS', 'Windows']}>
+  <Tab value="Linux">
+```bash
+sudo docker pull alirezasharifzadeh/vital_multiscale:v1
+```
+  </Tab>
+  <Tab value="macOS">
+```bash
+docker pull alirezasharifzadeh/vital_multiscale:v1
+```
+  </Tab>
+  <Tab value="Windows">
+```powershell
+docker pull alirezasharifzadeh/vital_multiscale:v1
+```
+  </Tab>
+</Tabs>
+
+This image includes all the tools and libraries needed for the tutorials.
+
+## Step 2: Clone the Repository
+
+Clone the tutorial repository to your local machine:
+
+```bash
+git clone https://github.com/AlirezaSharif/vital_multiscale.git
+cd vital_multiscale
+```
+
+## Step 3: Run the Docker Container
+
+Start the Docker container with the repository mounted:
+
+<Tabs groupId="os" items={['Linux', 'macOS', 'Windows']}>
+  <Tab value="Linux">
+```bash
+sudo docker run --name vital --rm -v $(pwd):/code -it alirezasharifzadeh/vital_multiscale:v1
+```
+
+Or with an absolute path:
+
+```bash
+sudo docker run --name vital --rm -v /path/to/vital_multiscale:/code -it alirezasharifzadeh/vital_multiscale:v1
+```
+  </Tab>
+  <Tab value="macOS">
+```bash
+docker run --name vital --rm -v $(pwd):/code -it alirezasharifzadeh/vital_multiscale:v1
+```
+
+Or with an absolute path:
+
+```bash
+docker run --name vital --rm -v /path/to/vital_multiscale:/code -it alirezasharifzadeh/vital_multiscale:v1
+```
+  </Tab>
+  <Tab value="Windows">
+**PowerShell:**
+```powershell
+docker run --name vital --rm -v ${PWD}:/code -it alirezasharifzadeh/vital_multiscale:v1
+```
+
+Or with an absolute path:
+
+```powershell
+docker run --name vital --rm -v C:\Users\YourName\vital_multiscale:/code -it alirezasharifzadeh/vital_multiscale:v1
+```
+
+**Command Prompt:**
+```cmd
+docker run --name vital --rm -v %cd%:/code -it alirezasharifzadeh/vital_multiscale:v1
+```
+  </Tab>
+</Tabs>
+
+### Command Breakdown
+
+| Flag | Description |
+|------|-------------|
+| `--name vital` | Names the container "vital" for easy reference |
+| `--rm` | Automatically removes the container when it exits |
+| `-v <path>:/code` | Mounts your local directory to `/code` inside container |
+| `-it` | Interactive mode with terminal access |
+
+## Step 4: Verify Setup
+
+Once inside the container, verify the setup by listing the contents:
+
+```bash
+ls /code
+```
+
+You should see the following directories:
+- `CCO/`
+- `MicrovascularModelling/`
+- `VItA/`
+
+## Directory Structure
+
+```
+vital_multiscale/
+├── CCO/                      # Constrained Constructive Optimization
+│   └── example_1             # Executable example
+├── MicrovascularModelling/   # Python microvascular scripts
+│   └── scripts/
+│       └── VITAL.py
+└── VItA/                     # Additional materials
+```
+
+## Troubleshooting
+
+### Permission Denied
+
+<Tabs groupId="os" items={['Linux', 'macOS', 'Windows']}>
+  <Tab value="Linux">
+If you encounter permission issues with Docker:
+
+```bash
+# Add your user to the docker group
+sudo usermod -aG docker $USER
+
+# Log out and back in, then try without sudo
+docker run --name vital --rm -v $(pwd):/code -it alirezasharifzadeh/vital_multiscale:v1
+```
+  </Tab>
+  <Tab value="macOS">
+If you encounter permission issues, ensure Docker Desktop is running and you have accepted the terms of service.
+
+For file permission issues with mounted volumes:
+
+```bash
+# Check Docker Desktop settings
+# Go to Settings → Resources → File Sharing
+# Ensure your project directory is in an allowed path
+```
+  </Tab>
+  <Tab value="Windows">
+If you encounter permission issues, ensure Docker Desktop is running and WSL 2 integration is enabled in Docker Desktop settings. Try running PowerShell as Administrator if needed.
+
+For volume mounting issues, ensure the drive is shared in Docker Desktop. Go to Settings → Resources → File Sharing and add the drive containing your project.
+  </Tab>
+</Tabs>
+
+### Container Already Exists
+
+If you get an error that the container name is already in use:
+
+```bash
+# Remove the existing container
+docker rm vital
+
+# Or use a different name
+docker run --name vital2 --rm -v $(pwd):/code -it alirezasharifzadeh/vital_multiscale:v1
+```
+
+### Image Pull Fails
+
+If the image fails to download, check your internet connection and try again:
+
+<Tabs groupId="os" items={['Linux', 'macOS', 'Windows']}>
+  <Tab value="Linux">
+```bash
+# Check connectivity
+ping docker.io
+
+# Retry the pull
+sudo docker pull alirezasharifzadeh/vital_multiscale:v1
+```
+  </Tab>
+  <Tab value="macOS">
+```bash
+# Check connectivity
+ping docker.io
+
+# Retry the pull
+docker pull alirezasharifzadeh/vital_multiscale:v1
+```
+  </Tab>
+  <Tab value="Windows">
+```powershell
+# Check connectivity
+ping docker.io
+
+# Retry the pull
+docker pull alirezasharifzadeh/vital_multiscale:v1
+```
+  </Tab>
+</Tabs>
+
+## Next Steps
+
+Once your environment is set up, proceed to the tutorials:
+
+<Cards>
+  <Card title="CCO Tutorial" href="/multiscale-modelling/cco" />
+  <Card title="Microvascular Modelling" href="/multiscale-modelling/microvascular" />
+</Cards>
