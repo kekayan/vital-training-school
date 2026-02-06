@@ -1,7 +1,6 @@
 {
   "pages": [
     "index",
-    "prerequisites",
-    "multiscale-modelling"
+    "prerequisites"
   ]
 }
