@@ -1,0 +1,198 @@
+---
+title: Git Installation
+description: Step-by-step guide to install Git on Ubuntu, macOS, and Windows
+---
+
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
+
+This guide walks you through installing Git on your operating system.
+
+## Prerequisites
+
+<Tabs groupId="os" items={['Ubuntu', 'macOS', 'Windows']}>
+  <Tab value="Ubuntu">
+**Ubuntu 22.04** server or desktop with a user account that has `sudo` privileges and terminal access.
+  </Tab>
+  <Tab value="macOS">
+**macOS 12 (Monterey) or later**. Git comes pre-installed with the Xcode Command Line Tools, but you may want a newer version.
+  </Tab>
+  <Tab value="Windows">
+**Windows 10** or **Windows 11**.
+  </Tab>
+</Tabs>
+
+## Installation
+
+<Tabs groupId="os" items={['Ubuntu', 'macOS', 'Windows']}>
+  <Tab value="Ubuntu">
+### Step 1: Update Package Index
+
+```bash
+sudo apt update
+```
+
+### Step 2: Install Git
+
+```bash
+sudo apt install git
+```
+  </Tab>
+  <Tab value="macOS">
+### Option A: Xcode Command Line Tools (Quickest)
+
+```bash
+xcode-select --install
+```
+
+A dialog will appear — click **Install** and wait for it to finish.
+
+### Option B: Using Homebrew (Recommended for Latest Version)
+
+```bash
+brew install git
+```
+  </Tab>
+  <Tab value="Windows">
+### Step 1: Download Git for Windows
+
+Download the installer from [git-scm.com](https://git-scm.com/download/win). Run the downloaded `.exe` file.
+
+### Step 2: Run the Installer
+
+Follow the installation wizard. The defaults are fine for most users. Key options to note:
+
+- **Default editor**: Choose your preferred editor (e.g., VS Code)
+- **PATH environment**: Select **Git from the command line and also from 3rd-party software** (recommended)
+- **Line ending conversions**: Select **Checkout Windows-style, commit Unix-style line endings**
+
+### Alternative: Using winget
+
+```powershell
+winget install --id Git.Git -e --source winget
+```
+  </Tab>
+</Tabs>
+
+## Verify Installation
+
+<Tabs groupId="os" items={['Ubuntu', 'macOS', 'Windows']}>
+  <Tab value="Ubuntu">
+```bash
+git --version
+```
+  </Tab>
+  <Tab value="macOS">
+```bash
+git --version
+```
+  </Tab>
+  <Tab value="Windows">
+Open **Git Bash** or **PowerShell**:
+
+```powershell
+git --version
+```
+  </Tab>
+</Tabs>
+
+## Initial Configuration (Optional)
+
+This step is only needed if you plan to make commits. If you're just cloning public repositories, you can skip this.
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+Verify your configuration:
+
+```bash
+git config --list
+```
+
+## Troubleshooting
+
+<Tabs groupId="os" items={['Ubuntu', 'macOS', 'Windows']}>
+  <Tab value="Ubuntu">
+### Git Not Found After Install
+
+```bash
+# Check if git is in PATH
+which git
+
+# Reinstall if needed
+sudo apt install --reinstall git
+```
+
+### Old Git Version
+
+To get the latest version, use the official PPA:
+
+```bash
+sudo add-apt-repository ppa:git-core/ppa
+sudo apt update
+sudo apt install git
+```
+  </Tab>
+  <Tab value="macOS">
+### Xcode Command Line Tools Fail to Install
+
+```bash
+# Remove existing (broken) install
+sudo rm -rf /Library/Developer/CommandLineTools
+
+# Reinstall
+xcode-select --install
+```
+
+### Homebrew Git Not Used
+
+If `git --version` still shows the Apple version after installing via Homebrew:
+
+```bash
+# Check which git is being used
+which git
+
+# Add Homebrew to PATH (Apple Silicon)
+echo 'export PATH="/opt/homebrew/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+  </Tab>
+  <Tab value="Windows">
+### Git Not Recognized in PowerShell
+
+Ensure Git is in your system PATH:
+
+1. Open **System Properties** → **Environment Variables**
+2. Under **System variables**, find `Path`
+3. Add `C:\Program Files\Git\cmd` if not present
+4. Restart PowerShell
+
+### Line Ending Issues
+
+```powershell
+# Configure line endings
+git config --global core.autocrlf true
+```
+
+### SSL Certificate Errors
+
+```powershell
+# Update SSL certificates
+git config --global http.sslBackend schannel
+```
+  </Tab>
+</Tabs>
+
+## Useful Commands
+
+| Command | Description |
+|---------|-------------|
+| `git init` | Initialize a new repository |
+| `git clone <url>` | Clone a remote repository |
+| `git status` | Show working directory status |
+| `git add <file>` | Stage changes for commit |
+| `git commit -m "message"` | Commit staged changes |
+| `git push` | Push commits to remote |
+| `git pull` | Fetch and merge remote changes |
+| `git log --oneline` | View commit history |

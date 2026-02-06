@@ -2,6 +2,7 @@
   "title": "Prerequisites",
   "pages": [
     "index",
+    "git",
     "docker"
   ]
 }
