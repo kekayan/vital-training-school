@@ -35,6 +35,8 @@ A 64-bit Linux distribution with `sudo` privileges and terminal access. Supporte
 sudo apt remove docker.io docker-doc docker-compose podman-docker containerd runc 2>/dev/null
 ```
 
+![Remove conflicting packages](./docker/ubunutu/step_1.png)
+
 ### Step 2: Set Up Docker's Repository
 
 ```bash
@@ -44,6 +46,8 @@ sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 ```
+
+![Install certificates and add Docker GPG key](./docker/ubunutu/step_2.png)
 
 Add the repository to apt sources:
 
@@ -57,9 +61,13 @@ Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 ```
 
+![Add Docker repository to apt sources](./docker/ubunutu/step_3.png)
+
 ```bash
 sudo apt update
 ```
+
+![Update package index](./docker/ubunutu/step_4.png)
 
 > **Debian users:** Replace `ubuntu` with `debian` in the `curl` and `tee` commands above, and use `$VERSION_CODENAME` instead of `${UBUNTU_CODENAME:-$VERSION_CODENAME}` in the `Suites` line.
 
@@ -69,11 +77,15 @@ sudo apt update
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
+![Install Docker Engine and plugins](./docker/ubunutu/step_5.png)
+
 ### Step 4: Run Docker Without Sudo (Recommended)
 
 ```bash
 sudo usermod -aG docker ${USER}
 ```
+
+![Add user to docker group and verify installation](./docker/ubunutu/step_6.png)
 
 Log out and log back in for changes to take effect.
 
