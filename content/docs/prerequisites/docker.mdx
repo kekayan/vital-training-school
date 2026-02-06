@@ -14,7 +14,7 @@ This guide walks you through installing Docker on your operating system.
 **Ubuntu 22.04** server or desktop with a user account that has `sudo` privileges and terminal access.
   </Tab>
   <Tab value="macOS">
-**macOS 12 (Monterey) or later** with at least 4GB of RAM. Works with Apple Silicon (M1/M2/M3) or Intel chips.
+**macOS 14 (Sonoma) or later** with at least 4GB of RAM. Works with Apple Silicon or Intel chips. Docker supports the current macOS release and the two previous major versions.
   </Tab>
   <Tab value="Windows">
 **Windows 10 64-bit** (Pro, Enterprise, or Education, version 22H2 / Build 19045+) or **Windows 11** (version 23H2 / Build 22631+). Requires WSL 2 version 2.1.5+ (recommended) or Hyper-V, at least 4GB of RAM, and BIOS-level hardware virtualization enabled.
@@ -68,6 +68,12 @@ Log out and log back in for changes to take effect.
 ### Option A: Docker Desktop (Recommended)
 
 Download [Docker Desktop for Mac](https://www.docker.com/products/docker-desktop/). Choose **Apple Silicon** or **Intel chip** based on your Mac. Open the `.dmg` file, drag Docker to Applications, then launch Docker and accept the service agreement.
+
+**Apple Silicon users:** Optionally install Rosetta 2 for better compatibility with x86/amd64 images:
+
+```bash
+softwareupdate --install-rosetta
+```
 
 ### Option B: Using Homebrew
 
