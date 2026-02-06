@@ -1,0 +1,76 @@
+---
+title: X Server Setup
+description: Setup guide to run graphical applications from Docker containers on Windows, macOS, and Linux
+---
+
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
+import { Callout } from 'fumadocs-ui/components/callout';
+
+An X server is required to display graphical applications (such as Fiji/ImageJ and ilastik) running inside Docker containers on your host machine.
+
+<Callout type="warn">
+Ensure the X server is running **before** starting the Docker container.
+</Callout>
+
+## Installation & Configuration
+
+<Tabs groupId="os" items={['Ubuntu', 'macOS', 'Windows']}>
+  <Tab value="Ubuntu">
+No additional installation is needed — Linux typically comes with an X server built in.
+
+To allow the Docker container to access your display, open a terminal on your host machine and run:
+
+```bash
+xhost +local:docker
+```
+
+<Callout>
+You need to run this command each time you restart your machine or log in.
+</Callout>
+  </Tab>
+  <Tab value="macOS">
+### Step 1: Install XQuartz
+
+Download and install [XQuartz](https://www.xquartz.org/).
+
+### Step 2: Configure XQuartz
+
+1. Open **XQuartz**
+2. Go to **Settings** (or **Preferences**) → **Security**
+3. Check the box: **Allow connections from network clients**
+
+### Step 3: Restart XQuartz
+
+Completely quit and restart XQuartz for the changes to take effect.
+
+### Step 4: Allow Connections
+
+Open your Mac terminal and run:
+
+```bash
+xhost +localhost
+```
+
+<Callout>
+You need to run the `xhost +localhost` command each time you restart XQuartz.
+</Callout>
+  </Tab>
+  <Tab value="Windows">
+### Step 1: Download VcXsrv
+
+Download VcXsrv from [vcxsrv.com](https://vcxsrv.com/) and follow the installation instructions.
+
+### Step 2: Launch VcXsrv
+
+Run **XLaunch** from the Start menu and configure with these settings:
+
+1. **Display settings**: Select **Multiple windows**
+2. **Client startup**: Select **Start no client**
+3. **Extra settings**: Check **Disable access control**
+4. Click **Finish** to start the X server
+
+<Callout>
+You need to launch VcXsrv each time before running Docker containers that require a graphical interface.
+</Callout>
+  </Tab>
+</Tabs>

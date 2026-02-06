@@ -3,6 +3,7 @@
   "pages": [
     "index",
     "git",
-    "docker"
+    "docker",
+    "x-server"
   ]
 }
