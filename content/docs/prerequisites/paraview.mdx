@@ -1,0 +1,59 @@
+---
+title: ParaView Installation
+description: Step-by-step guide to install ParaView on Ubuntu, macOS, and Windows
+---
+
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
+
+[ParaView](https://www.paraview.org/) is an open-source data analysis and visualization application. It is used in Tutorial 6 for visualizing simulation results.
+
+## Installation
+
+<Tabs groupId="os" items={['Ubuntu', 'macOS', 'Windows']}>
+  <Tab value="Ubuntu">
+### Option A: Package Manager
+
+```bash
+sudo apt update
+sudo apt install paraview
+```
+
+### Option B: Download from Website (Recommended for latest version)
+
+1. Go to the [ParaView Downloads](https://www.paraview.org/download/) page
+2. Download the latest `.tar.gz` for Linux
+3. Extract and run:
+
+```bash
+tar -xzf ParaView-*.tar.gz
+cd ParaView-*/bin
+./paraview
+```
+  </Tab>
+  <Tab value="macOS">
+### Option A: Download from Website (Recommended)
+
+1. Go to the [ParaView Downloads](https://www.paraview.org/download/) page
+2. Download the `.dmg` file for macOS
+3. Open the `.dmg` file and drag ParaView to Applications
+
+### Option B: Using Homebrew
+
+```bash
+brew install --cask paraview
+```
+  </Tab>
+  <Tab value="Windows">
+1. Go to the [ParaView Downloads](https://www.paraview.org/download/) page
+2. Download the `.exe` installer for Windows
+3. Run the installer and follow the installation wizard
+  </Tab>
+</Tabs>
+
+## Verify Installation
+
+Launch ParaView from your Applications menu or run:
+
+```bash
+paraview --version
+```

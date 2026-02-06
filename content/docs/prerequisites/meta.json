@@ -4,6 +4,7 @@
     "index",
     "git",
     "docker",
-    "x-server"
+    "x-server",
+    "paraview"
   ]
 }
