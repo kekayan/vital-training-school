@@ -1,8 +1,8 @@
 {
-  "title": "Multiscale Modelling",
+  "title": "Tutorial 6",
   "pages": [
     "index",
-    "setup",
+    "getting-started",
     "cco",
     "microvascular"
   ]

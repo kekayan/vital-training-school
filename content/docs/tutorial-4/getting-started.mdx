@@ -1,0 +1,110 @@
+---
+title: Getting Started
+description: Setting up the environment for Tutorial 4 using Docker Compose
+---
+
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
+import { Callout } from 'fumadocs-ui/components/callout';
+import { GithubInfo } from 'fumadocs-ui/components/github-info';
+
+This guide walks you through setting up the environment for Tutorial 4 using Docker Compose.
+
+<GithubInfo owner="ABI-Animus-Laboratory" repo="abi-animus-lab-tutorials" />
+
+## Step 1: Clone the Repository
+
+Clone the tutorial repository to your local machine:
+
+```bash
+git clone https://github.com/ABI-Animus-Laboratory/abi-animus-lab-tutorials.git
+cd abi-animus-lab-tutorials
+```
+
+## Step 2: Start the Environment
+
+Pull and run the latest images from GitHub Container Registry:
+
+<Tabs groupId="os" items={['Linux', 'macOS', 'Windows']}>
+  <Tab value="Linux">
+```bash
+docker compose -f docker-compose.prod.yml up -d
+```
+  </Tab>
+  <Tab value="macOS">
+```bash
+docker compose -f docker-compose.prod.mac.yml up -d
+```
+  </Tab>
+  <Tab value="Windows">
+```powershell
+docker compose -f docker-compose.prod.yml up -d
+```
+  </Tab>
+</Tabs>
+
+<Callout type="info">
+The first run may take a few minutes as Docker downloads the required images.
+</Callout>
+
+## Step 3: Access Jupyter Lab
+
+Once the containers are running, open your browser and navigate to:
+
+```
+http://127.0.0.1:8888/lab
+```
+
+The token will be provided in the terminal launch logs.
+
+## Step 4: Navigate to Tutorial 4
+
+In the Jupyter Lab file browser, navigate to the `tutorial_4/` directory and open `tutorial_4.ipynb` to begin the tutorial.
+
+## Shutting Down
+
+When you are finished, stop the containers:
+
+<Tabs groupId="os" items={['Linux', 'macOS', 'Windows']}>
+  <Tab value="Linux">
+```bash
+docker compose -f docker-compose.prod.yml down
+```
+  </Tab>
+  <Tab value="macOS">
+```bash
+docker compose -f docker-compose.prod.mac.yml down
+```
+  </Tab>
+  <Tab value="Windows">
+```powershell
+docker compose -f docker-compose.prod.yml down
+```
+  </Tab>
+</Tabs>
+
+<Callout>
+Since the Docker images are not built locally, you do not need to repeat Step 1 when restarting. Simply start from Step 2 every time you shut down the container or your machine.
+</Callout>
+
+## Troubleshooting
+
+### Port Already in Use
+
+If port 8888 is already in use:
+
+```bash
+# Check what is using the port
+lsof -i :8888
+
+# Or stop all running containers
+docker compose down
+```
+
+### Container Fails to Start
+
+Ensure Docker Desktop is running and that you have enough available memory (at least 4GB recommended).
+
+### Cannot Access Jupyter Lab
+
+- Verify the containers are running: `docker compose ps`
+- Check the container logs for the Jupyter token: `docker compose logs`
