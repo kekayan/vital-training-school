@@ -1,6 +1,6 @@
 ---
 title: Docker Installation
-description: Step-by-step guide to install Docker on Ubuntu, macOS, and Windows
+description: Step-by-step guide to install Docker on Linux, macOS, and Windows
 ---
 
 import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
@@ -9,9 +9,13 @@ This guide walks you through installing Docker on your operating system.
 
 ## Prerequisites
 
-<Tabs groupId="os" items={['Ubuntu', 'macOS', 'Windows']}>
-  <Tab value="Ubuntu">
-**Ubuntu 22.04** server or desktop with a user account that has `sudo` privileges and terminal access.
+<Tabs groupId="os" items={['Linux', 'macOS', 'Windows']}>
+  <Tab value="Linux">
+A 64-bit Linux distribution with `sudo` privileges and terminal access. Supported distros include:
+
+- **Ubuntu** 22.04 (Jammy) or 24.04 (Noble)
+- **Debian** 12 (Bookworm) or 13 (Trixie)
+- **Fedora** 41, 42, or 43
   </Tab>
   <Tab value="macOS">
 **macOS 14 (Sonoma) or later** with at least 4GB of RAM. Works with Apple Silicon or Intel chips. Docker supports the current macOS release and the two previous major versions.
@@ -23,46 +27,96 @@ This guide walks you through installing Docker on your operating system.
 
 ## Installation
 
-<Tabs groupId="os" items={['Ubuntu', 'macOS', 'Windows']}>
-  <Tab value="Ubuntu">
-### Step 1: Update Package Index
+<Tabs groupId="os" items={['Linux', 'macOS', 'Windows']}>
+  <Tab value="Linux">
+
+<Tabs groupId="distro" items={['Ubuntu / Debian', 'Fedora']}>
+  <Tab value="Ubuntu / Debian">
+
+### Step 1: Remove Conflicting Packages
+
+```bash
+sudo apt remove docker.io docker-doc docker-compose podman-docker containerd runc 2>/dev/null
+```
+
+### Step 2: Set Up Docker's Repository
 
 ```bash
 sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 ```
 
-### Step 2: Install Required Packages
+Add the repository to apt sources:
 
 ```bash
-sudo apt install apt-transport-https ca-certificates curl software-properties-common
-```
-
-### Step 3: Add Docker's GPG Key
-
-```bash
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-```
-
-### Step 4: Add Docker Repository
-
-```bash
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-```
-
-### Step 5: Install Docker
-
-```bash
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io
 ```
 
-### Step 6: Run Docker Without Sudo (Recommended)
+> **Debian users:** Replace `ubuntu` with `debian` in both commands above.
+
+### Step 3: Install Docker Engine and Docker Compose
+
+```bash
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+### Step 4: Run Docker Without Sudo (Recommended)
 
 ```bash
 sudo usermod -aG docker ${USER}
 ```
 
 Log out and log back in for changes to take effect.
+
+  </Tab>
+  <Tab value="Fedora">
+
+### Step 1: Remove Conflicting Packages
+
+```bash
+sudo dnf remove docker docker-client docker-client-latest docker-common \
+  docker-latest docker-latest-logrotate docker-logrotate \
+  docker-selinux docker-engine-selinux docker-engine 2>/dev/null
+```
+
+### Step 2: Set Up Docker's Repository
+
+```bash
+sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
+```
+
+### Step 3: Install Docker Engine and Docker Compose
+
+```bash
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+### Step 4: Start and Enable Docker
+
+```bash
+sudo systemctl enable --now docker
+```
+
+### Step 5: Run Docker Without Sudo (Recommended)
+
+```bash
+sudo usermod -aG docker ${USER}
+```
+
+Log out and log back in for changes to take effect.
+
+  </Tab>
+</Tabs>
+
+> For other distributions or the full official guide, see the [Docker Engine installation documentation](https://docs.docker.com/engine/install/).
+
   </Tab>
   <Tab value="macOS">
 ### Option A: Docker Desktop (Recommended)
@@ -118,23 +172,25 @@ Download [Docker Desktop for Windows](https://www.docker.com/products/docker-des
 
 ## Verify Installation
 
-<Tabs groupId="os" items={['Ubuntu', 'macOS', 'Windows']}>
-  <Tab value="Ubuntu">
+<Tabs groupId="os" items={['Linux', 'macOS', 'Windows']}>
+  <Tab value="Linux">
 ```bash
-sudo systemctl status docker
 docker --version
+docker compose version
 docker run hello-world
 ```
   </Tab>
   <Tab value="macOS">
 ```bash
 docker --version
+docker compose version
 docker run hello-world
 ```
   </Tab>
   <Tab value="Windows">
 ```powershell
 docker --version
+docker compose version
 docker run hello-world
 ```
   </Tab>
@@ -142,8 +198,8 @@ docker run hello-world
 
 ## Troubleshooting
 
-<Tabs groupId="os" items={['Ubuntu', 'macOS', 'Windows']}>
-  <Tab value="Ubuntu">
+<Tabs groupId="os" items={['Linux', 'macOS', 'Windows']}>
+  <Tab value="Linux">
 ### Permission Denied Error
 
 ```bash
@@ -161,13 +217,6 @@ sudo usermod -aG docker ${USER}
 ```bash
 sudo systemctl status docker
 sudo journalctl -u docker.service
-```
-
-### GPG Key Issues
-
-```bash
-sudo rm /usr/share/keyrings/docker-archive-keyring.gpg
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
   </Tab>
   <Tab value="macOS">
@@ -239,4 +288,6 @@ Then restart WSL: `wsl --shutdown`
 | `docker run <image>` | Run a container |
 | `docker stop <container>` | Stop a container |
 | `docker rm <container>` | Remove a container |
+| `docker compose up` | Start services defined in `docker-compose.yml` |
+| `docker compose down` | Stop and remove services |
 | `docker system prune` | Clean up unused resources |
