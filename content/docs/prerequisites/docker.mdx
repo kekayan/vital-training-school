@@ -236,6 +236,24 @@ sudo usermod -aG docker ${USER}
 sudo systemctl status docker
 sudo journalctl -u docker.service
 ```
+
+### Conflicting Signed-By Error (Ubuntu)
+
+If you see this error when running `apt update`:
+
+```
+E: Conflicting values set for option Signed-By regarding source https://download.docker.com/linux/ubuntu jammy: /etc/apt/keyrings/docker.gpg != /etc/apt/keyrings/docker.asc
+E: The list of sources could not be read.
+```
+
+Remove the conflicting source and run update again:
+
+```bash
+sudo rm /etc/apt/sources.list.d/docker.list
+sudo apt update
+```
+
+Then continue with the installation steps from Step 2 onwards.
   </Tab>
   <Tab value="macOS">
 ### Docker Desktop Won't Start
