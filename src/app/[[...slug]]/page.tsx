@@ -12,11 +12,6 @@ export default async function Page(props: PageProps<'/[[...slug]]'>) {
   if (!page) notFound();
 
   const MDX = page.data.body;
-  const gitConfig = {
-    user: 'ABI-Animus-Laboratory',
-    repo: 'abi-animus-lab-tutorials',
-    branch: 'main',
-  };
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
@@ -24,11 +19,7 @@ export default async function Page(props: PageProps<'/[[...slug]]'>) {
       <DocsDescription className="mb-0">{page.data.description}</DocsDescription>
       <div className="flex flex-row gap-2 items-center border-b pb-6">
         <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
-        <ViewOptions
-          markdownUrl={`${page.url}.mdx`}
-          // update it to match your repo
-          githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/docs/content/docs/${page.path}`}
-        />
+        <ViewOptions markdownUrl={`${page.url}.mdx`} />
       </div>
       <DocsBody>
         <MDX
