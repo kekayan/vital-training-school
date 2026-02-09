@@ -1,36 +1,64 @@
 ---
-title: "Tutorial 6: Multiscale Modelling"
-description: Tutorial material for VITAL training school - Multiscale modelling with Docker
+title: "Tutorial 6: Multiscale Modelling & Arterial Constitutive Modelling"
+description: Tutorial material for VITAL training school - Multiscale modelling and arterial constitutive modelling
 ---
 
-This tutorial covers multiscale modelling techniques using the VITAL multiscale toolkit. The tutorial is containerized with Docker for easy setup and reproducibility.
+Tutorial 6 consists of two parts covering different aspects of bioengineering modelling.
 
-## Resource Persons
+## Part A: Multiscale Modelling (MasoTalou & SharifzadehKermani)
+
+This part covers multiscale modelling techniques using the VITAL multiscale toolkit, containerized with Docker.
+
+### Resource Persons
 
 | Name | Affiliation |
 |------|-------------|
 | **Alireza Sharifzadeh-Kermani** | Auckland Bioengineering Institute, University of Auckland |
 | **Gonzalo Maso Talou** | Auckland Bioengineering Institute, University of Auckland |
 
-## Overview
+### Overview
 
 The multiscale modelling tutorial includes three main components:
 
-- **CCO** - Constrained Constructive Optimization for vascular network generation
-- **MicrovascularModelling** - Python-based scripts for microvascular modelling
-- **VItA** - Additional tutorial materials
+- **CCO** — Constrained Constructive Optimization for vascular network generation
+- **MicrovascularModelling** — Python-based scripts for 1D hemodynamic simulation and homogenisation
+- **VItA** — Additional tutorial materials
 
-## Getting Started
+The tutorial walks through a full pipeline: generating vascular trees, running hemodynamic simulations, and quantifying equivalent resistance. It includes two exercises on statistical analysis and noise sensitivity.
 
-<Cards>
-  <Card title="Getting Started" href="/tutorial-6/getting-started" />
-</Cards>
-
-## Prerequisites
-
-Before starting this tutorial, ensure you have:
+### Prerequisites
 
 - Docker installed on your system ([Installation Guide](/prerequisites/docker))
 - Basic familiarity with command line operations
 - At least 8GB of available RAM
 - (Optional) ParaView for visualizing simulation results ([Installation Guide](/prerequisites/paraview))
+
+<Cards>
+  <Card title="Getting Started — Multiscale Modelling" href="/tutorial-6/getting-started" />
+</Cards>
+
+---
+
+## Part B: Arterial Constitutive Modelling (Giudici)
+
+This part covers arterial constitutive modelling through a series of Jupyter notebooks that run within the main Docker environment.
+
+### Key Files
+
+| File | Description |
+|------|-------------|
+| `Arterial_const_mod_Notebook_1.ipynb` | Arterial constitutive modelling — Part 1 |
+| `Arterial_const_mod_Notebook_2.ipynb` | Arterial constitutive modelling — Part 2 |
+| `Arterial_const_mod_Notebook_3.ipynb` | Arterial constitutive modelling — Part 3 |
+| `biaxial_all.xlsx` | Biaxial test data |
+| `dynamX_d.xlsx` | Dynamic test data |
+
+### Prerequisites
+
+- Docker and Docker Compose installed on your system ([Installation Guide](/prerequisites/docker))
+- Git installed ([Installation Guide](/prerequisites/git))
+- Basic familiarity with command line operations
+
+<Cards>
+  <Card title="Getting Started — Arterial Constitutive Modelling" href="/tutorial-6/getting-started-giudici" />
+</Cards>

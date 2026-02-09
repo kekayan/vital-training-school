@@ -1,13 +1,13 @@
 ---
-title: Getting Started
-description: Setting up the environment for Tutorial 5 using Docker Compose
+title: "Getting Started — Arterial Constitutive Modelling"
+description: Setting up the environment for Tutorial 6 (Giudici) using Docker Compose
 ---
 
 import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
 import { Callout } from 'fumadocs-ui/components/callout';
 import { GithubInfo } from 'fumadocs-ui/components/github-info';
 
-This guide walks you through setting up the environment for Tutorial 5 using Docker Compose.
+This guide walks you through setting up the environment for the arterial constitutive modelling notebooks using Docker Compose.
 
 <GithubInfo owner="ABI-Animus-Laboratory" repo="abi-animus-lab-tutorials" />
 
@@ -20,21 +20,7 @@ git clone https://github.com/ABI-Animus-Laboratory/abi-animus-lab-tutorials.git
 cd abi-animus-lab-tutorials
 ```
 
-## Step 2: Clone Circulatory_Autogen
-
-From inside the `tutorial_2_5_Argus_Ghitti_Davis/` directory, clone the Circulatory_Autogen repository:
-
-```bash
-cd tutorial_2_5_Argus_Ghitti_Davis
-git clone https://github.com/FinbarArgus/circulatory_autogen.git --branch devel_interactive_tutorial
-cd ..
-```
-
-<Callout type="info">
-This step clones the Circulatory_Autogen software which is required for generating and calibrating computational models in this tutorial.
-</Callout>
-
-## Step 3: Start the Environment
+## Step 2: Start the Environment
 
 Pull and run the latest images from GitHub Container Registry:
 
@@ -60,7 +46,7 @@ docker compose -f docker-compose.prod.yml up -d
 The first run may take a few minutes as Docker downloads the required images.
 </Callout>
 
-## Step 4: Access Jupyter Lab
+## Step 3: Access Jupyter Lab
 
 Once the containers are running, open your browser and navigate to:
 
@@ -70,9 +56,15 @@ http://127.0.0.1:8888/lab
 
 The token will be provided in the terminal launch logs.
 
-## Step 5: Navigate to Tutorial 5
+## Step 4: Navigate to the Notebooks
 
-In the Jupyter Lab file browser, navigate to the `tutorial_2_5_Argus_Ghitti_Davis/` directory. Open `test_opencor.ipynb` first to verify that OpenCOR is working correctly, then proceed with `tutorial_2_5_test.ipynb`.
+In the Jupyter Lab file browser, navigate to the `tutorial_6_Giudici/` directory. Work through the notebooks in order:
+
+1. `Arterial_const_mod_Notebook_1.ipynb`
+2. `Arterial_const_mod_Notebook_2.ipynb`
+3. `Arterial_const_mod_Notebook_3.ipynb`
+
+The data files `biaxial_all.xlsx` and `dynamX_d.xlsx` are included in the same directory and used by the notebooks.
 
 ## Shutting Down
 
@@ -97,7 +89,7 @@ docker compose -f docker-compose.prod.yml down
 </Tabs>
 
 <Callout>
-Since the Docker images are not built locally, you do not need to repeat Steps 1-2 when restarting. Simply start from Step 3 every time you shut down the container or your machine.
+Since the Docker images are not built locally, you do not need to repeat Step 1 when restarting. Simply start from Step 2 every time you shut down the container or your machine.
 </Callout>
 
 ## Troubleshooting

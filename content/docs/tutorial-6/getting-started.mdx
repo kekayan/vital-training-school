@@ -4,6 +4,7 @@ description: Setting up the multiscale modelling environment with Docker
 ---
 
 import { Tabs, Tab } from 'fumadocs-ui/components/tabs';
+import { Callout } from 'fumadocs-ui/components/callout';
 import { GithubInfo } from 'fumadocs-ui/components/github-info';
 
 This guide walks you through setting up the multiscale modelling environment using Docker.
@@ -152,6 +153,38 @@ Now run the script:
 ```
 
 ![Step 6: Run the program](./step_6.png)
+
+## How It Works
+
+Running `./run.sh` performs the following pipeline:
+
+1. **Vascular tree generation** — Arterial (`./artery`) and venous (`./vein`) trees are generated inside a specified cube (`ex_3D.vtk`) with random seeds using Constrained Constructive Optimization (CCO)
+2. **Microvascular modelling** — `MicrovascularModelling/scripts/VITAL.py` takes the venous trees as input, connects their terminals, and runs a 1D hemodynamic simulation with a pressure-pressure boundary condition
+3. **Homogenisation** — Using the hemodynamic solution, the network's equivalent resistance is quantified and printed in the terminal
+
+<Callout type="info">
+Configuration parameters for the simulation can be found in `MicrovascularModelling/config/Cases/VITAL.json`.
+</Callout>
+
+## Visualising Results
+
+You can visualise the simulation results using ParaView. The generated output is located at:
+
+```
+outputs/results/ratio_1.4/test_metrics/case_165/growth_0.vtk
+```
+
+Open this file in ParaView to inspect the vascular network and hemodynamic results. See the [ParaView Installation Guide](/prerequisites/paraview) if you haven't installed it yet.
+
+## Exercises
+
+### Exercise 1: Statistical Analysis with Random Seeds
+
+Write a code to execute `run.sh` 100 times and save the equivalent resistances into a CSV file. Then, plot the distribution of resistances and determine whether you are dealing with an RVE (Representative Volume Element) or an SVE (Statistical Volume Element).
+
+### Exercise 2: Noise Sensitivity Analysis
+
+Unlike Exercise 1, use a fixed network (do not run `artery` and `vein`). Instead, introduce an additive noise term to the network's radii in `MicrovascularModelling/scripts/VITAL.py`. Assume a noise amplitude of 10% of the original radius. Similar to Exercise 1, determine the statistics of the equivalent resistance.
 
 ## Troubleshooting
 
